@@ -41,7 +41,7 @@ public class Productox {
 	// Se pone el formato de fecha mas comun para que el html lo lea
 	@DateTimeFormat(iso = ISO.DATE)
 	@Future
-	private LocalDate fechacaducidad;
+	private LocalDate fechaCaducidad;
 	
 	@NotNull
 	@Min(0)
