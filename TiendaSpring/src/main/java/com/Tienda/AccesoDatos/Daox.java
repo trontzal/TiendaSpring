@@ -17,7 +17,7 @@ public interface Daox<T> {
 		throw new AccesoDatosException("No implementado");
 	}
 	
-	default T borrar(Long id) {
+	default void borrar(Long id) {
 		throw new AccesoDatosException("No implementado");
 	}
 	
