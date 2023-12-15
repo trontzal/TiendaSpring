@@ -5,13 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Tienda.logicanegocio.UsuarioNegociox;
 
 @Controller
 @RequestMapping
-public class IndexControlerx {
+public class IndexControllerx {
 	@Autowired
 	private UsuarioNegociox negocio;
 
@@ -25,7 +24,7 @@ public class IndexControlerx {
 
 //	@ResponseBody
 	@GetMapping("/detalle")
-	public String detalle(Model modelo, long id) {
+	public String detalle(Model modelo, Long id) {
 		modelo.addAttribute("producto", negocio.detalleProducto(id));
 		return "detalle";
 	}
