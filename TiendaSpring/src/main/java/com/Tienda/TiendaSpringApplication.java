@@ -26,16 +26,18 @@ public class TiendaSpringApplication implements CommandLineRunner {
 //	private UsuarioNegociox usuario;
 	
 	@Autowired
-	private AdminNegociox admin;
+	private UsuarioNegociox user;
 
 	@Override
 	public void run(String... args) throws Exception {
 //		Productox productoAInsertar = Productox.builder().nombre("Prueba con logica").codigoBarras("1234567890123").precio(new BigDecimal("123")).unidades(34).build();
 //		admin.insertarProducto(productoAInsertar);
 		
-		for(Productox p: admin.listadoProductos()) {
-			System.out.println(p);
-		}
+//		for(Productox p: admin.listadoProductos()) {
+//			System.out.println(p);
+//		}
+		
+		System.out.println(user.listadoProductos());
 		
 //		System.out.println(usuario.detalleProducto(1L));
 
