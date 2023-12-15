@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Tienda con spring detalle</title>
+</head>
+
+<body>
+
+	<h1>Tienda con spring detalle</h1>
+
+	<pre th:text="${producto}">Visualización de producto</pre>
+
+	<ul>
+		<li th:text="${producto.codigoBarras}">1234567890123</li>
+		<li th:text="${producto.nombre}">Producto por defecto</li>
+		<li th:text="${producto.precio}">1234,12€</li>
+	</ul>
+
+</body>
+
+</html>
