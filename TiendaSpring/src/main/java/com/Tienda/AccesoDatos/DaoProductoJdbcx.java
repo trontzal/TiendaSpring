@@ -15,30 +15,30 @@ class DaoProductoJdbcx implements DaoProductox{
 	
 	@Override
 	public Iterable<Productox> obtenerTodos(){
-		return jdbc.query("SELECT * FROM productosx", new BeanPropertyRowMapper<Productox>(Productox.class));
+		return jdbc.query("SELECT * FROM productos", new BeanPropertyRowMapper<Productox>(Productox.class));
 	}
 	
 	@Override
 	public Productox obtenerPorId(Long id) {
-		return jdbc.queryForObject("SELECT * FROM productosx WHERE id=?", new BeanPropertyRowMapper<Productox>(Productox.class), id);
+		return jdbc.queryForObject("SELECT * FROM productos WHERE id=?", new BeanPropertyRowMapper<Productox>(Productox.class), id);
 	}
 	
 	@Override
 	public Productox insertar(Productox producto) {
-	    jdbc.update("INSERT INTO productosx (codigo_barras, nombre, precio, fecha_caducidad, unidades) VALUES (?, ?, ?, ?, ?)",
+	    jdbc.update("INSERT INTO productos (codigo_barras, nombre, precio, fecha_caducidad, unidades) VALUES (?, ?, ?, ?, ?)",
 	            producto.getCodigoBarras(), producto.getNombre(), producto.getPrecio(), producto.getFechaCaducidad(), producto.getUnidades());
 	    return producto;
 	}
 	
 	@Override
 	public Productox modificar(Productox producto) {
-		jdbc.update("UPDATE productosx SET codigo_barras=?, nombre=?, precio=?, fecha_caducidad=?, unidades=? WHERE id=?", producto.getCodigoBarras(), producto.getNombre(), producto.getPrecio(), producto.getFechaCaducidad(), producto.getUnidades(), producto.getId());
+		jdbc.update("UPDATE productos SET codigo_barras=?, nombre=?, precio=?, fecha_caducidad=?, unidades=? WHERE id=?", producto.getCodigoBarras(), producto.getNombre(), producto.getPrecio(), producto.getFechaCaducidad(), producto.getUnidades(), producto.getId());
 		return producto;
 	}
 	
 	@Override
 	public void borrar(Long id) {
-		jdbc.update("DELETE FROM productosx WHERE id=?", id);
+		jdbc.update("DELETE FROM productos WHERE id=?", id);
 	}
 
 }
