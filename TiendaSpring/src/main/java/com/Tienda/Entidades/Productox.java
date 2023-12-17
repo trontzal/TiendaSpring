@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class Productox {
-	private long id;
+	private Long id;
 
 	@NotNull
 	@Pattern(regexp = "^\\d{13}$", message = "debe de tener 13 digitos ' \"^\\\\d{13}$\"'")
