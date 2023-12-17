@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Tienda Spring productos amdin</title>
+</head>
+
+<body>
+
+	<h1>Tienda spring productos admin</h1>
+
+	<table>
+		<thead>
+			<th>Id</th>
+			<th>Codigo de barras</th>
+			<th>Nombre</th>
+			<th>Precio</th>
+			<th>Fecha de caducidad</th>
+			<th>Unidades</th>
+			<th>OPCIONES</th>
+		</thead>
+		<tbody>
+			<tr th:each="p : ${productos}">
+				<td th:text="${p.id}">1</td>
+				<td th:text="${p.codigoBarras}">1235647896541</td>
+				<td th:text="${p.nombre}">Producto1</td>
+				<td th:text="${p.precio}">123.12€</td>
+				<td th:text="${p.fechaCaducidad}">2000-11-06</td>
+				<td th:text="${p.unidades}">50</td>
+				<td>
+					<a href="detalle.html" th:href="@{/admin/detalle(id=${p.id})}">Editar</a>
+					<a href="#" th:href="@{/admin/borrar(id=${p.id})}">Borrar</a>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<a href="detalle.html" th:href="@{/admin/detalle}">Añadir nuevo</a>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+
+</body>
+
+</html>
