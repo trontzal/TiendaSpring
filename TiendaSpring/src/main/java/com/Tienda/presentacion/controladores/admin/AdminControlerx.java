@@ -3,12 +3,15 @@ package com.Tienda.presentacion.controladores.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Tienda.Entidades.Productox;
 import com.Tienda.logicanegocio.AdminNegociox;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,7 +27,11 @@ public class AdminControlerx {
 	}
 
 	@PostMapping
-	private String post(Productox producto) {
+	private String post(@Valid Productox producto, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "admin/detalle";
+		}
+		
 		if (producto.getId() == null) {
 			admin.insertarProducto(producto);
 		} else {
