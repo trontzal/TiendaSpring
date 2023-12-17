@@ -15,7 +15,7 @@ public class IndexControllerx {
 	private UsuarioNegociox negocio;
 
 //	@ResponseBody
-	@GetMapping("/index")
+	@GetMapping("/")
 	public String index(Model modelo) {
 //		return negocio.listadoProductos().toString();
 		modelo.addAttribute("productos", negocio.listadoProductos());
