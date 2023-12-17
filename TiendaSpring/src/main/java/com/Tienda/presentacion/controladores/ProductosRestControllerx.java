@@ -13,7 +13,7 @@ import com.Tienda.Entidades.Productox;
 import com.Tienda.logicanegocio.AdminNegociox;
 
 @RestController
-@RequestMapping("/admin/productos")
+@RequestMapping("/api/v1/productos")
 public class ProductosRestControllerx {
 
 	@Autowired
