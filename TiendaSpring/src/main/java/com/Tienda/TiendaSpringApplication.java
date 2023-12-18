@@ -25,8 +25,8 @@ public class TiendaSpringApplication implements CommandLineRunner {
 //	@Autowired
 //	private UsuarioNegociox usuario;
 	
-	@Autowired
-	private UsuarioNegociox user;
+//	@Autowired
+//	private UsuarioNegociox user;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -37,7 +37,7 @@ public class TiendaSpringApplication implements CommandLineRunner {
 //			System.out.println(p);
 //		}
 		
-		System.out.println(user.listadoProductos());
+//		System.out.println(user.listadoProductos());
 		
 //		System.out.println(usuario.detalleProducto(1L));
 
