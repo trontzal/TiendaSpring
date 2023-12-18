@@ -21,13 +21,13 @@ public class AdminControlerx {
 	private AdminNegociox admin;
 
 	@GetMapping
-	private String index(Model modelo) {
+	public String index(Model modelo) {
 		modelo.addAttribute("productos", admin.listadoProductos());
 		return "admin/index";
 	}
 
 	@PostMapping
-	private String post(@Valid Productox producto, BindingResult bindingResult) {
+	public String post(@Valid Productox producto, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return "admin/detalle";
 		}
@@ -41,16 +41,16 @@ public class AdminControlerx {
 	}
 
 	@GetMapping("/borrar")
-	private String borrar(Long id) {
+	public String borrar(Long id) {
 		admin.borrarProducto(id);
 		return "redirect:/admin";
 	}
-
+	
 	@GetMapping("/detalle")
 	public String detalle(Model modelo, Long id, Productox producto) {
 		if (id != null) {
-			modelo.addAttribute("producto", admin.detalleProducto(id));
-		}
+			modelo.addAttribute("productox", admin.detalleProducto(id));
+	    }
 		return "admin/detalle";
 	}
 }
