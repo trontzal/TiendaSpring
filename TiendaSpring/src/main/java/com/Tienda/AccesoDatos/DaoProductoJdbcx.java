@@ -1,11 +1,14 @@
 package com.Tienda.AccesoDatos;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.Tienda.Entidades.Productox;
+import com.Tienda.logicanegocio.ClaveDuplicadaException;
+import com.Tienda.logicanegocio.LogicaNegocioException;
 
 @Component
 class DaoProductoJdbcx implements DaoProductox{
@@ -25,9 +28,15 @@ class DaoProductoJdbcx implements DaoProductox{
 	
 	@Override
 	public Productox insertar(Productox producto) {
-	    jdbc.update("INSERT INTO productos (codigo_barras, nombre, precio, fecha_caducidad, unidades) VALUES (?, ?, ?, ?, ?)",
-	            producto.getCodigoBarras(), producto.getNombre(), producto.getPrecio(), producto.getFechaCaducidad(), producto.getUnidades());
-	    return producto;
+	    try {
+			jdbc.update("INSERT INTO productos (codigo_barras, nombre, precio, fecha_caducidad, unidades) VALUES (?, ?, ?, ?, ?)",
+			        producto.getCodigoBarras(), producto.getNombre(), producto.getPrecio(), producto.getFechaCaducidad(), producto.getUnidades());
+			return producto;
+	    } catch (DuplicateKeyException e) {
+			throw new ClaveDuplicadaException("el código de barras está duplicado", "producto", "codigoBarras", e);
+		} catch (Exception e) {
+			throw new LogicaNegocioException("Error no esperado al insertar");
+		}
 	}
 	
 	@Override

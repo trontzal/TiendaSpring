@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Tienda.Entidades.Productox;
 import com.Tienda.logicanegocio.AdminNegociox;
+import com.Tienda.logicanegocio.ClaveDuplicadaException;
 
 import jakarta.validation.Valid;
 
@@ -32,10 +34,15 @@ public class AdminControlerx {
 			return "admin/detalle";
 		}
 		
-		if (producto.getId() == null) {
-			admin.insertarProducto(producto);
-		} else {
-			admin.modificarProducto(producto);
+		try {
+			if (producto.getId() == null) {
+				admin.insertarProducto(producto);
+			} else {
+				admin.modificarProducto(producto);
+			}
+		} catch (ClaveDuplicadaException e) {
+			bindingResult.addError(new FieldError(e.getObjeto(), e.getCampo(), e.getMessage()));
+			return "admin/detalle";
 		}
 		return "redirect:/admin";
 	}
