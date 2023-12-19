@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
-	<title>Tienda con spring</title>
+	<title>Listado de productos: Tienda Spring</title>
 </head>
 
 <body>
-	<h1>Tienda con spring</h1>
 
-	<pre th:text="${productos}">Visualizacion de productos</pre>
-
-	<ul th:each="p : ${productos}">
-		<li>
-			<span th:text="${p.nombre}">Producto por defecto</span>
-			<a href="detalle.html" th:href="@{/detalle(id=${p.id})}">Detalle</a>
-		</li>
-	</ul>
+	<main>
+		<ul th:each="p : ${productos}">
+			<li>
+				<span th:text="${p.nombre}">Producto por defecto</span>
+				<a href="detalle.html" th:href="@{/detalle(id=${p.id})}">Detalle</a>
+			</li>
+		</ul>
+	</main>
 </body>
 
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html th:fragment="plantilla (titulo, contenido)" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:replace="${titulo}">Titulo por defecto</title>
+</head>
+
+<body>
+
+	<header>Tienda Spring</header>
+	
+	<main th:replace="${contenido}">
+		<p>Contenido por defecto</p>
+	</main>
+	
+	<footer>
+		Gonzalo Lecumberri
+	</footer>
+</body>
+
+</html>
