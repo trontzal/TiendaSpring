@@ -1,5 +1,6 @@
 package com.Tienda.logicanegocio;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
 import com.Tienda.Entidades.Productox;
@@ -9,8 +10,13 @@ public class AdminNegocioImplx extends UsuarioNegocioImplx implements AdminNegoc
 
 	@Override
 	public Productox insertarProducto(Productox producto) {
-		// Aqui me falta meter codigo de validaciones
-		return daoProducto.insertar(producto);
+		try {
+			return daoProducto.insertar(producto);
+		} catch (DuplicateKeyException e) {
+			throw new ClaveDuplicadaException("el código de barras está duplicado", "producto", "codigoBarras", e);
+		}catch (Exception e) {
+			throw new LogicaNegocioException("Error no esperado al insertar");
+		}
 	}
 
 	@Override
