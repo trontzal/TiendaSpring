@@ -29,11 +29,14 @@ public class AdminControlerx {
 	}
 
 	@PostMapping
-	public String post(@Valid Productox producto, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+	public String post(Model modelo, @Valid Productox producto, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			modelo.addAttribute("alerta", "Revisa los errores del formulario");
+			modelo.addAttribute("nivel", "danger");
+
 			return "admin/detalle";
 		}
-		
+
 		try {
 			if (producto.getId() == null) {
 				admin.insertarProducto(producto);
@@ -41,7 +44,15 @@ public class AdminControlerx {
 				admin.modificarProducto(producto);
 			}
 		} catch (ClaveDuplicadaException e) {
-			bindingResult.addError(new FieldError(e.getObjeto(), e.getCampo(), e.getMessage()));
+			if(e.getCampo() != null) {
+				modelo.addAttribute("alerta", "Revisa los errores del formulario");
+				modelo.addAttribute("nivel", "danger");
+				bindingResult.addError(new FieldError(e.getObjeto(), e.getCampo(), e.getMessage()));
+
+			}else {
+				modelo.addAttribute("alerta", e.getMessage());
+				modelo.addAttribute("nivel", "danger");
+			}
 			return "admin/detalle";
 		}
 		return "redirect:/admin";
@@ -52,12 +63,12 @@ public class AdminControlerx {
 		admin.borrarProducto(id);
 		return "redirect:/admin";
 	}
-	
+
 	@GetMapping("/detalle")
 	public String detalle(Model modelo, Long id, Productox producto) {
 		if (id != null) {
 			modelo.addAttribute("productox", admin.detalleProducto(id));
-	    }
+		}
 		return "admin/detalle";
 	}
 }
