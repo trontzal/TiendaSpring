@@ -19,6 +19,7 @@ public class WebSecurityConfig {
 	// https://bcrypt-generator.com/
 
 	// CODIFICACIÓN DE CONTRASEÑAS BCRYPT
+	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(12);
 	}
