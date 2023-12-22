@@ -32,15 +32,17 @@ public class WebSecurityConfig {
 		auth.jdbcAuthentication().dataSource(dataSource)
 			.usersByUsernameQuery(
 					"""
-					SELECT email,password,
+					SELECT email,password,1
+	    			FROM usuarios
+	    			WHERE email = ?
 					"""
 					)
 			.authoritiesByUsernameQuery(
 					"""
-					SELECT u.email, CONCAT('ROLE_', r.nombre)
-					FROM usuarios u
-					JOIN roles r ON u.rol_id = r.id
-					WHERE email = ?
+						SELECT u.email, CONCAT('ROLE_', r.nombre) 
+		    			FROM usuarios u
+		    			JOIN roles r ON u.rol_id = r.id
+		    			WHERE email = ?
 					"""
 					);
 	}
