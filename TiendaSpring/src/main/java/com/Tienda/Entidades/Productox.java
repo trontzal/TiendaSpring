@@ -27,7 +27,7 @@ public class Productox {
 	@NotNull
 	@Pattern(regexp = "^\\d{13}$", message = "debe de tener 13 digitos ' \"^\\\\d{13}$\"'")
 	@Size(min = 13, max = 13, message = "debe ser 13 caracteres exactos")
-	@EAN
+	//@EAN
 	private String codigoBarras;
 
 	@NotNull
