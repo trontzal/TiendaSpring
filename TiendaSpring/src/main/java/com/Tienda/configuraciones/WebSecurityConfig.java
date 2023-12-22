@@ -1,34 +1,35 @@
 package com.Tienda.configuraciones;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import io.micrometer.core.ipc.http.HttpSender.Request;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-	// AUTENTICACIÓN
-	@Bean
-	UserDetailsService userDetailsService() {
-		UserDetails admin = User.withDefaultPasswordEncoder()
-			.username("javier").password("contra").roles("ADMIN")
-			.build();
-		UserDetails user = User.withDefaultPasswordEncoder()
-			.username("pepe").password("perez").roles("USER")
-			.build();
+	// https://bcrypt-generator.com/
 
-		return new InMemoryUserDetailsManager(user, admin);
+	// CODIFICACIÓN DE CONTRASEÑAS BCRYPT
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(12);
 	}
-
+	
+	// Autenticacion
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth, DataSource dataSource)
+		throws Exception{
+		auth.jdbcAuthentication().dataSource(dataSource);
+	}
+	
 	// AUTORIZACIÓN
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -50,3 +51,18 @@ public class WebSecurityConfig {
 		return http.build();
 	}
 }
+
+//AUTENTICACIÓN DE MYSQL
+//----------------------
+//create table users(
+//	username varchar(50) not null primary key,
+//	password varchar(500) not null,
+//	enabled boolean not null
+//);
+//
+//create table authorities (
+//	username varchar(50) not null,
+//	authority varchar(50) not null,
+//	constraint fk_authorities_users foreign key(username) references users(username)
+//);
+//create unique index ix_auth_username on authorities (username,authority);
