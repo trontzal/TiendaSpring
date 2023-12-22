@@ -31,7 +31,7 @@
 				}
 			})
 		});
-		
+
 	</script>
 </head>
 
@@ -56,10 +56,13 @@
 
 					<li class="nav-item"><a class="nav-link" href="carrito"><i class="bi bi-cart4"></i>5</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="login">Iniciar
+					<li class="nav-item"><a class="nav-link" href="/loging.html" th:href="@{/login?interactivo}">Iniciar
 							sesión</a></li>
-					<li class="nav-item"><a class="nav-link" href="logout">Cerrar
-							sesión</a></li>
+					<li class="nav-item">
+						<form action="/" th:action="@{/logout}" method="post">
+							<button class="nav-link">Cerrar sesion</button>
+						</form>
+					</li>
 				</ul>
 
 			</div>
