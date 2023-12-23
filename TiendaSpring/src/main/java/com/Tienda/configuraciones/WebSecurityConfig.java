@@ -17,18 +17,9 @@ public class WebSecurityConfig {
 	// AUTENTICACIÓN
 	@Bean
 	UserDetailsService userDetailsService() {
-		UserDetails admin =
-			 User.withDefaultPasswordEncoder()
-				.username("javier")
-				.password("contra")
-				.roles("ADMIN")
+		UserDetails admin = User.withDefaultPasswordEncoder().username("javier").password("contra").roles("ADMIN")
 				.build();
-		UserDetails user =
-			 User.withDefaultPasswordEncoder()
-				.username("pepe")
-				.password("perez")
-				.roles("USER")
-				.build();
+		UserDetails user = User.withDefaultPasswordEncoder().username("pepe").password("perez").roles("USER").build();
 
 		return new InMemoryUserDetailsManager(user, admin);
 	}
@@ -36,19 +27,12 @@ public class WebSecurityConfig {
 	// AUTORIZACIÓN
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/admin/**").hasRole("ADMIN")
-				.requestMatchers("/detalle").authenticated()
-				.anyRequest().permitAll()
+		http.authorizeHttpRequests((requests) -> requests.requestMatchers("/admin/**").hasRole("ADMIN")
+				.requestMatchers("/detalle").authenticated().anyRequest().permitAll()
 //				.requestMatchers("/", "/home").permitAll()
 //				.anyRequest().authenticated()
-			)
-			.formLogin((form) -> form
-				.loginPage("/login")
-				.permitAll()
-			)
-			.logout((logout) -> logout.permitAll());
+		).exceptionHandling(handling -> handling.accessDeniedPage("/login?noautorizado"))
+				.formLogin(form -> form.loginPage("/login").permitAll()).logout((logout) -> logout.permitAll());
 
 		return http.build();
 	}
