@@ -13,17 +13,10 @@ public class TiendaSpringApplication implements CommandLineRunner {
 		SpringApplication.run(TiendaSpringApplication.class, args);
 	}
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
 		
-		String pass = passwordEncoder.encode("contra");
-
-		System.out.println(pass);
-
-		System.out.println(passwordEncoder.matches("contra", pass));
 		
 	}
 }
